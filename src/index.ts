@@ -30,6 +30,9 @@ function gotData(err:Error, data:Object, response:Object) {
     // }
 }
 
+async () => {
+    T.get('search/tweets', params, gotData);
+}
 
 
 
@@ -40,8 +43,6 @@ function gotData(err:Error, data:Object, response:Object) {
 
 const btn = document.getElementById("test");
 if(btn) {btn.onclick = () => {
-    (async () => {
-        T.get('search/tweets', params, gotData);
-    })
+    console.log(T.get('search/tweets', params, gotData));
 }}
 
