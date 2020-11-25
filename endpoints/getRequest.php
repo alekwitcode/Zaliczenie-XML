@@ -14,6 +14,8 @@
         } elseif ($endpoint && !isset($path) && $params) {
             $queryString = http_build_query($params);
             $finalUrl = "https://api.twitter.com$endpoint?$queryString";
+        } elseif ($endpoint && !isset($path) && !isset($params)) {
+            $finalUrl = "https://api.twitter.com$endpoint";
         }
 
         $header[] = "Authorization: Bearer ${bearerKey}";
