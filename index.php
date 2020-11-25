@@ -7,8 +7,9 @@
 </head>
 <body>
     <?php 
+        require('./endpoints/getRequest.php');
         include 'endpoints/tweetsByUsername.php';
-        getByUsername('TwitterDev');
+        getRequest('https://api.twitter.com/2/users/by/username/','TwitterDev');
     ?>
 </body>
 </html>

@@ -1,0 +1,5 @@
+<?php 
+    $endpoints = array(
+        ''
+    )
+?>
