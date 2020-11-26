@@ -44,12 +44,18 @@
     <?php 
         require_once('./endpoints/getRequest.php');
         $xml = getRequest('/2/tweets/search/','recent','query=python&max_results=10');
-        $xmlFile = 'request.xml';
-        $current = file_get_contents($xmlFile);
-        $current = '';
-        $current .= $xml;
-        file_put_contents($xmlFile, $current);
-        include 'request.xml';
+        $xmlLocation = 'xml/request.xml';
+        $target = file_put_contents($xmlLocation, $xml);
+
+
+        include 'xml/request.xml';
+
+
+        // $xmlFile = new DOMDocument('1.0');
+        // $xmlFile->preserveWhiteSpace = false;
+        // $xmlFile->formatOutput = true;
+        // $xmlFile->loadXML($xml->asXML());
+        // $xmlFile->save('/xml/request.xml');
     ?>
 </body>
 </html>
