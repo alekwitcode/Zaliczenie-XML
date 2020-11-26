@@ -11,7 +11,7 @@
     function json2xml($data) {
       $jsonArr = json_decode($data, true);
       $convertedXML = json_to_xml($jsonArr);
-      return ("<full-response>\r\n" . $convertedXML . "</full-response>");
+      return ("<full-response>\r\n" . $convertedXML . "\r\n</full-response>");
   }
 
   function json_to_xml($obj){
@@ -23,11 +23,11 @@
       $is_list = array_keys($obj) == array_keys(array_values($obj));
       if(!$is_list) {
         foreach($obj as $k=>$v)
-          $str.="<item key=\"$k\">".json_to_xml($v)."</item>"."\r\n";
+          $str.="<item key=\"$k\">".json_to_xml($v)."</item>";
       } else {
-        $str.= "<list>\r\n";
+        $str.= "<list>";
         foreach($obj as $v)
-          $str.="<list-item>".json_to_xml($v)."</list-item>"."\r\n";
+          $str.="<list-item>".json_to_xml($v)."</list-item>";
         $str .= "</list>";
       }
       return $str;

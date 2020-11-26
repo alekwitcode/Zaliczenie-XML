@@ -10,7 +10,7 @@
 </head>
 <body>
     
-<form action="converters/inputToQuery.php" method="POST">
+<form action="converters/outputToArray.php" method="POST">
 <div class="form-wrapper">
     <div class="path-wrapper">
         <label for="path">Path: </label>
@@ -31,14 +31,19 @@
                     <input type="text" id="type0-0" class="type" name="type"><br><br>
                 </div>
             </div>
-            <button href="#" id="typeBtn0" onclick="typeBtn(0,0)">Add Type</button>
+            <button href="#" id="typeBtn0" >Add Type</button>
+                                        <!--onclick="typeBtn(0,0)"-->
         </div>
     </div>
     
-    <button href="#" id="queryBtn" onclick="queryBtn(0,0)">Add Query</button>
+    <button href="#" id="queryBtn" >Add Query</button>
+                                    <!--onclick="queryBtn(0,0)"-->
 </div>
 <input type="submit" value="Submit">
 </form>
+<div>
+    <img src="imgs/ASPv2.jpg">
+</div>
 
 <h2>Response: </h2>
     <?php 
