@@ -10,7 +10,7 @@
 </head>
 <body>
     
-<form action="pathPOST.php"> <!-- action="pathPOST.php" -->
+<form action="converters/inputToQuery.php" method="POST">
 <div class="form-wrapper">
     <div class="path-wrapper">
         <label for="path">Path: </label>
@@ -20,20 +20,22 @@
         <label for="argument">Argument: </label>
         <input type="text" class="argument" name="argument"><br><br>
     </div>
-    <div class="query-wrapper" id="query-wrapper0">
-        <label for="query">Query: </label>
-        <input type="text" id="query0" class="query" name="query"><br><br>
+    <div id="queries-wrapper">
+        <div class="query-wrapper" id="query-wrapper0">
+            <label for="query0">Query: </label>
+            <input type="text" id="query0" class="query" name="query0"><br><br>
 
-        <div class="types-wrapper">
-            <div class="type-wrapper">
-                <label for="type">Type: </label>
-                <input type="text" id="type0-0" class="type" name="type"><br><br>
+            <div class="types-wrapper">
+                <div class="type-wrapper">
+                    <label for="type">Type: </label>
+                    <input type="text" id="type0-0" class="type" name="type"><br><br>
+                </div>
             </div>
+            <button href="#" id="typeBtn0" onclick="typeBtn(0,0)">Add Type</button>
         </div>
-        <button href="#" id="typeBtn0">Add Type</button>
     </div>
     
-    <button href="#" id="queryBtn">Add Query</button>
+    <button href="#" id="queryBtn" onclick="queryBtn(0,0)">Add Query</button>
 </div>
 <input type="submit" value="Submit">
 </form>
@@ -41,8 +43,13 @@
 <h2>Response: </h2>
     <?php 
         require_once('./endpoints/getRequest.php');
-        echo getRequest('/2/tweets/search/','recent','query=python&max_results=10');
-       # echo getRequest('/2/users/by/username/','TwitterDev');
+        $xml = getRequest('/2/tweets/search/','recent','query=python&max_results=10');
+        $xmlFile = 'request.xml';
+        $current = file_get_contents($xmlFile);
+        $current = '';
+        $current .= $xml;
+        file_put_contents($xmlFile, $current);
+        include 'request.xml';
     ?>
 </body>
 </html>

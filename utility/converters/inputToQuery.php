@@ -25,6 +25,6 @@
             }
         }
 
-        return $query . "\n";;
+        return $query . "\n";
     }
 ?>
