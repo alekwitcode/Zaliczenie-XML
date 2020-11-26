@@ -1,23 +1,21 @@
 <?php 
-    require_once('./utility/arrayToXML.php');
+    require_once('./utility/converters/arrayToXML.php');
     require_once('./utility/config.php');
 
-    function getRequest(String $endpoint, String $path, array $params = null) {
+
+    function getRequest(String $path, String $arg = '', String $params = '') {
         $bearerKey = TWITTER_BEARER_KEY;
         $ch = curl_init();
-
-        if($endpoint && $path && isset($params)) {
-            $queryString = http_build_query($params);
-            $finalUrl = "https://api.twitter.com$endpoint$path?$queryString";
-        } elseif ($endpoint && $path && !isset($params)) {
-            $finalUrl = "https://api.twitter.com$endpoint$path";
-        } elseif ($endpoint && !isset($path) && $params) {
-            $queryString = http_build_query($params);
-            $finalUrl = "https://api.twitter.com$endpoint?$queryString";
-        } elseif ($endpoint && !isset($path) && !isset($params)) {
-            $finalUrl = "https://api.twitter.com$endpoint";
+        if($path && $arg && $params) {
+            $finalUrl = "https://api.twitter.com$path$arg?$params";
+        } elseif ($path && $arg == '' && $params ) {
+            $finalUrl = "https://api.twitter.com$path?$params";
+        } elseif ($path && $arg && $params == '' ) {
+            $finalUrl = "https://api.twitter.com$path$arg";
+        } elseif ($path && $arg == '' && $params == '' ) {
+            $finalUrl = "https://api.twitter.com$path";
         }
-
+        #$finalUrl = "https://api.twitter.com/2/tweets/search/recent?query=python&max_results=10&tweet.fields=created_at,lang,conversation_id";
         $header[] = "Authorization: Bearer ${bearerKey}";
 
         curl_setopt($ch, CURLOPT_URL, $finalUrl);
@@ -30,9 +28,9 @@
             echo "Curl error: ${e}";
         } else {
             $convertedXML = json2xml($resp);
-            print_r($convertedXML);
         };
-
+        
         curl_close($ch);
+        return $convertedXML;
     }
 ?>

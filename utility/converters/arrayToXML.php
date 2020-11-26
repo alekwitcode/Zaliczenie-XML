@@ -5,16 +5,18 @@
     /** 
      * Iterative XML constructor 
      * 
-     * @param array $array 
+     * @param array $jsonArr $array 
+     * @param array|string $value
      * @param object|boolean $xml 
      * @return string 
      */
     function json2xml($data) {
       $jsonArr = json_decode($data, true);
-      return array2xml($jsonArr);
+      $convertedXML = array2xml($jsonArr);
+      return $convertedXML;
     }
 
-    function array2xml( $array, $xml = false) {
+    function array2xml( array $array, $xml = false) {
       // Test if iteration
       if ( $xml === false ) {
         $xml = new SimpleXMLElement('<result/>');

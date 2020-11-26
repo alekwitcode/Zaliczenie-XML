@@ -4,3 +4,5 @@
 <li><b>php7.4.3</b> (cli)</li>
 <li><b>php-xml</b> for json -> xml conversion</li>
 </ul>
+
+<h5>Input must be String</h5>
