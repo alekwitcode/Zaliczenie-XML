@@ -14,10 +14,10 @@
 
         foreach( $array as $value ) {
             if ( is_string( $value ) || is_numeric( $value ) ) {
-                $query = "$query$value,";
+                $query .= "$query$value,";
             } elseif ( is_array( $value ) ) {
                 foreach( $value as $valueValue ) {
-                    $query = "$query$valueValue,";
+                    $query .= "$query$valueValue,";
                 }
                 
             } else {

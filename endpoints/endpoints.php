@@ -7,7 +7,7 @@
 
     $userParams = array(
         'expansions' => [
-            '' => 'pinned_tweet_id',
+            'PinnedTweetId' => 'pinned_tweet_id',
         ],
         'ids' => [],
         'tweet.fields' => [],

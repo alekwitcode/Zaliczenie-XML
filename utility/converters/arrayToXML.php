@@ -19,7 +19,6 @@
     if(is_null($obj))
       return "<null/>";
     elseif(is_array($obj)) {
-        //a list is a hash with 'simple' incremental keys
       $is_list = array_keys($obj) == array_keys(array_values($obj));
       if(!$is_list) {
         foreach($obj as $k=>$v)
