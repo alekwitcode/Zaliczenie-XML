@@ -16,6 +16,7 @@
       return (
 '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <?xml-stylesheet type="text/xsl" href="request-transform.xsl"?>
+<request xsi:noNamespaceSchemaLocation="request-schema.xsd">
 <full-response>'.$convertedXML.'</full-response>'
       );
   }
