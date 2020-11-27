@@ -9,58 +9,128 @@
     <title>Twitter</title>
 </head>
 <body>
-    
-<form action="converters/outputToArray.php" method="POST">
-<div class="form-wrapper">
-    <div class="path-wrapper">
-        <label for="path">Path: </label>
-        <input type="text" class="path" name="path"><br>
-    </div>
-    <div class="argument-wrapper">
-        <label for="argument">Argument: </label>
-        <input type="text" class="argument" name="argument"><br><br>
-    </div>
-    <div id="queries-wrapper">
-        <div class="query-wrapper" id="query-wrapper0">
-            <label for="query0">Query: </label>
-            <input type="text" id="query0" class="query" name="query0"><br><br>
-
-            <div class="types-wrapper">
-                <div class="type-wrapper">
-                    <label for="type">Type: </label>
-                    <input type="text" id="type0-0" class="type" name="type"><br><br>
-                </div>
-            </div>
-            <button href="#" id="typeBtn0" >Add Type</button>
-                                        <!--onclick="typeBtn(0,0)"-->
-        </div>
-    </div>
-    
-    <button href="#" id="queryBtn" >Add Query</button>
-                                    <!--onclick="queryBtn(0,0)"-->
-</div>
-<input type="submit" value="Submit">
+<form method="post" action="#">
+    <table>
+        <tr>
+            <td>Path: </td>
+            <td>
+                <input type="text" name="path" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td>Argument: </td>
+            <td>
+                <input type="text" name="arg" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td>Query: </td>
+            <td>
+                <input type="text" name="query" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td>Types: </td>
+            <td>
+                <input type="text" name="type0" value=""/>
+            </td>
+            <td>
+                <input type="text" name="type1" value=""/>
+            </td>
+            <td>
+                <input type="text" name="type2" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="submitForm"></td>
+        </tr>
+    </table>
 </form>
+
+<h2>Response: </h2>
+
+<?php 
+    require_once("form/getRequest.php");
+
+    if (isset($_POST["submitForm"])) {
+
+        if(isset($_POST['path'])) {
+            $path = $_POST['path'];
+        } else {
+            echo "Path is required!";
+        }
+
+        if(isset($_POST['path'])) {
+            $arg = $_POST['arg'];
+        } else {
+            $arg = null;
+        }
+        
+        if(isset($_POST['query'])) {
+            $query = $_POST['query'];
+        }
+
+        if(isset($_POST['type0'])) {
+            $type0 = $_POST['type0'];
+        }
+
+        if(isset($_POST['type1'])) {
+            $type1 = $_POST['type1'];
+        }
+
+        if(isset($_POST['type2'])) {
+            $type2 = $_POST['type2'];
+        }
+
+        $types = '';
+        $params = '';
+
+        if(isset($query) && ($type0 != ''|| $type1 != '' || $type2 != '')) {
+            $types .= "$type0";
+
+            if($type1 != '') {
+                $types .= ",$type1";
+                if($type2 != '') {
+                    $types .= ",$type2";
+                }
+            } elseif ($type2 != '') {
+                $types .= ",$type2";
+            }
+
+            $params = "?$query=$types";
+        } elseif (($query == '' && $types != '') || ($query != '' && $types == '')) {
+            echo "You need to provide both query and type!";
+            $params = null;
+        } else {
+            $params = null;
+        }
+
+        $queryString = '';
+    
+        if($path && $arg && $params) {
+            $queryString = "$path$arg$params";
+        } elseif ($path && !isset($arg) && $params) {
+            $queryString = "$path$params";
+        } elseif ($path && $arg && !isset($params) ) {
+            $queryString = "$path$arg";
+        } elseif ($path && !isset($arg) && !isset($params) ) {
+            $queryString = "$path";
+        }
+        echo "</br> Converted url:\t$queryString</br></br>";
+
+        $json = getRequest($queryString);
+        $xml = json2xml($json);
+
+        $xmlLocation = 'form/response/xml/request.xml';
+        file_put_contents($xmlLocation, $xml);
+
+        include 'form/response/xml/request.xml';
+    };
+    
+?>
+
 <div>
     <img src="imgs/ASPv2.jpg">
 </div>
-
-<h2>Response: </h2>
-    <?php 
-        require_once('./endpoints/getRequest.php');
-        $xml = getRequest('/2/tweets/search/','recent','query=python&max_results=10');
-        $xmlLocation = 'xml/request.xml';
-        $target = file_put_contents($xmlLocation, $xml);
-
-
-        include 'xml/request.xml';
-
-
-        // $xmlFile = new DOMDocument('1.0');
-        // $xmlFile->preserveWhiteSpace = false;
-        // $xmlFile->formatOutput = true;
-        // $xmlFile->loadXML($xml->asXML());
-        // $xmlFile->save('/xml/request.xml');
-    ?>
 </body>
 </html>
