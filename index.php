@@ -50,12 +50,16 @@
     $(document).ready(function(e){
 
         // variables to avoid mess. They *have to be in one line* no matter how I much hate it
-
-        var allRows =   '<p /><div>Path:<input type="text" class="path" name="path" id="childpath"><br> Argument: <input type="text" class="argument" name="argument" id="childargument"><br> Query:<input type="text" id="query0" class="query" name="query" id="childquery"><br>Type:<input type="text" id="type0-0" class="type" name="type" id="childtype"><a href="#" id="remove"><br> x </a></div>'
-
-        //Adding rows to the form
+        // idea needed : how tf can i change the id by one >.> (and yes I'll be cleaning comments)
+        var rowQuery =   '<div class="query-wrapper" id="query-wrapper0"><label for="query">Query: </label><input type="text" id="query0" class="query" name="query" id="query"><br><br><div class="types-wrapper" /><div class="type-wrapper"><label for="type">Type: </label><input type="text" id="type0-0" class="type" name="type"><br><br></div></div><a href="#" id="remove">x</a> <br>';
+        var rowType = '<div class="types-wrapper"><div class="type-wrapper"><label for="type" >Type: </label><input type="text" id="type0-0" class="type" name="type" /><br><br></div></div>';
+        //Adding Query & (1) type to the form. This works as intended(probably)
         $("#add").click(function(e){
-           $("#dynamicForm").append(allRows);
+           $("#dynamicForm").append(rowQuery);
+        //Adding type, currently useless, no idea how to connect it to the specified query
+           $("#addType").click(function(e){
+           $("#dynamicForm").append(rowType);
+           })
 
         //removing rows
         $("#dynamicForm").on('click','#remove',function(e) {
@@ -65,25 +69,39 @@
         });
     });
 </script>
+<!-- work in progress don't mind weird buttons --> 
+<div id="dynamicForm">
+    <form action="pathPOST.php"> 
+    <div class="form-wrapper">
+        <div class="path-wrapper">
+            <label for="path">Path: </label>
+            <input type="text" class="path" name="path" id="path"><br>
+        </div>
+
+        <div class="argument-wrapper">
+            <label for="argument">Argument: </label>
+            <input type="text" class="argument" name="argument" id="argument"><br><br>
+        </div>
+
+        <div class="query-wrapper" id="query-wrapper0">
+            <label for="query">Query: </label>
+            <input type="text" id="query0" class="query" name="query" ><br><br>
+
+        <div class="types-wrapper">
+            <div class="type-wrapper">
+                <label for="type">Type: </label>
+                <input type="text" id="type0-0" class="type" name="type" ><br><br>
+            </div>
+        </div>
+        <button href="#" id="typeBtn0">Add Type</button>
+    </div>
     
-        <form method="POST" action="utility/requests.php">
-        <div id="dynamicForm">
-            Path:<input type="text" class="path" name="path" id="path"><br>
-
-            Argument: <input type="text" class="argument" name="argument" id="argument"> <br>
-
-
-            Query:<input type="text" id="query0" class="query" name="query" id="query"><br>
-
-
-            Type:<input type="text" id="type0-0" class="type" name="type" id="type"><br>
-
-
-            <a href="#" id="add"> Add </a>
-
-        </form>
+        <button href="#" id="queryBtn">Add Query</button>
     </div>
+    <input type="submit" value="Submit"> <br> 
+<a href="#" id="add"> Additional Query</a> <br>
+<a href="#" id="addType"> Additional Type</a> <br>
+</form>
 
-    </div>
 </body>
 </html>
