@@ -119,23 +119,16 @@
         echo "</br> Converted url:\t$queryString</br></br>";
 
         $json = getRequest($queryString);
-        $xml = json2xml($json);
+        $xml = json2array($json);
 
         $xmlLocation = 'form/response/xml/request.xsl';
         file_put_contents($xmlLocation, $xml);
-
-       
-
-   
     };
-
 ?>
 
 <div>
-<
-<a href="form/response/xml/request.xsl">Final results</a><br>
+    <a href="form/response/xml/request.xsl">Final results</a><br>
     <img src="imgs/ASPv2.jpg">
-
 </div>
 </body>
 </html>
