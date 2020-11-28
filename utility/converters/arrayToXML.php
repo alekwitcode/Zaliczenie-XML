@@ -13,11 +13,47 @@
       $jsonArr = json_decode($data, true);
       $convertedXML = json_to_xml($jsonArr);
       echo $convertedXML;
-      return (
-'<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<?xml-stylesheet type="text/xml" href="request-transform.xsl"?>
-
-<full-response>'.$convertedXML.'</full-response>'
+    return ('<?xml version="1.0" encoding="UTF-8"?>
+    <?xml-stylesheet type="text/xml" href="#stylesheet"?>
+    <!DOCTYPE catelog [
+    <!ATTLIST xsl:stylesheet
+      id    ID  #REQUIRED>
+    ]>
+    <full-response>
+    <xsl:stylesheet id="stylesheet" version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    
+    <xsl:template match="/">
+    
+      <html>
+      <body>
+        <h2 align="center">Results</h2>
+        
+        
+       <table border="1" width="100%" align="center">
+       
+        <tr bgcolor="#00FFFF">
+         <xsl:for-each select="full-response/list/list-item/item">
+           <th><xsl:value-of select="@key"/>  </th>
+         </xsl:for-each>
+        </tr>
+        
+        
+          
+         <tr height="100px">
+         <xsl:for-each select="full-response/list/list-item/item">
+        <td style="text-align:center;">
+        <xsl:value-of select="text()"/>
+        </td>
+        </xsl:for-each>
+        </tr>
+       </table>
+    
+    
+      </body>
+      </html>
+    </xsl:template>
+    </xsl:stylesheet>'.$convertedXML.'</full-response>'
       );
   }
 

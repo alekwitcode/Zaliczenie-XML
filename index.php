@@ -121,16 +121,21 @@
         $json = getRequest($queryString);
         $xml = json2xml($json);
 
-        $xmlLocation = 'form/response/xml/request.xml';
+        $xmlLocation = 'form/response/xml/request.xsl';
         file_put_contents($xmlLocation, $xml);
 
-        include 'form/response/xml/request.xml';
+       
+
+   
     };
-    
+
 ?>
 
 <div>
+<
+<a href="form/response/xml/request.xsl">Final results</a><br>
     <img src="imgs/ASPv2.jpg">
+
 </div>
 </body>
 </html>
