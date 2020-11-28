@@ -15,8 +15,8 @@
       echo $convertedXML;
       return (
 '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<?xml-stylesheet type="text/xsl" href="request-transform.xsl"?>
-<request xsi:noNamespaceSchemaLocation="request-schema.xsd">
+<?xml-stylesheet type="text/xml" href="request-transform.xsl"?>
+
 <full-response>'.$convertedXML.'</full-response>'
       );
   }

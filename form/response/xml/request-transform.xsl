@@ -1,24 +1,30 @@
-<?xml version="1.0"?>
-
+<?xml version="2.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<request xsi:noNamespaceSchemaLocation="request-schema.xsd">
+<xsl:template match="/">
 
-<xsl:template match="request.xml">
-  <div>
-    <h2>Response</h2>
-    <table border="1">
-      <tr bgcolor="#9acd32">
-        <th>Title</th>
-        <th>Artist</th>
-      </tr>
-      <xsl:for-each select="catalog/cd">
-        <tr>
-          <td><xsl:value-of select="title"/></td>
-          <td><xsl:value-of select="artist"/></td>
-        </tr>
-      </xsl:for-each>
+  <html>
+  <body>
+    <h2 align="center">Testing grounds</h2>
+   <table border="1" width="80%" align="center">
+    <tr bgcolor="#00FFFF">
+     <xsl:for-each select="full-response/list/list-item/item">
+       <th><xsl:value-of select="@key"/>  </th>
+     </xsl:for-each>
+      
+    </tr>
+     <tr height="100px">
+     <xsl:for-each select="full-response/list/list-item/item">
+    <td style="text-align:center;">
+    <xsl:value-of select="text()"/>
+    </td>
+    </xsl:for-each>
+   </tr>
     </table>
- 
-</xsl:template>
 
+  </body>
+  </html>
+</xsl:template>
 </xsl:stylesheet>
+
